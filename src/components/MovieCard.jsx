@@ -41,7 +41,7 @@ const MovieCard = ({ movie }) => {
         sm:w-40
         md:w-44
         lg:w-52
-        xl:w-56
+        xl:w-60
         overflow-hidden
         rounded-2xl
         cursor-pointer
@@ -49,6 +49,8 @@ const MovieCard = ({ movie }) => {
         transition-all
         duration-500
         hover:scale-105
+        hover:-translate-y-2
+        hover:shadow-[0_25px_50px_rgba(0,0,0,0.6)]
       "
     >
       {/* My List Button */}
@@ -62,7 +64,7 @@ const MovieCard = ({ movie }) => {
           p-2
           rounded-full
           bg-black/70
-          backdrop-blur-sm
+          backdrop-blur-md
           text-white
           opacity-0
           group-hover:opacity-100
@@ -82,14 +84,15 @@ const MovieCard = ({ movie }) => {
       {/* Poster */}
       <img
         src={poster_path ? IMG_CDN_URL + poster_path : noPoster}
-        alt="Movie Poster"
+        alt={movie.title}
+        loading="lazy"
         className="
           w-full
           h-full
           object-cover
           rounded-2xl
           transition-transform
-          duration-500
+          duration-700
           group-hover:scale-110
         "
         onError={(e) => {
@@ -97,7 +100,7 @@ const MovieCard = ({ movie }) => {
         }}
       />
 
-      {/* Dark Overlay */}
+      {/* Overlay */}
       <div
         className="
           absolute
@@ -108,7 +111,7 @@ const MovieCard = ({ movie }) => {
           to-transparent
           opacity-0
           group-hover:opacity-100
-          transition
+          transition-all
           duration-500
         "
       />
@@ -122,8 +125,10 @@ const MovieCard = ({ movie }) => {
           items-center
           justify-center
           opacity-0
+          scale-75
           group-hover:opacity-100
-          transition
+          group-hover:scale-100
+          transition-all
           duration-500
         "
       >
@@ -148,7 +153,7 @@ const MovieCard = ({ movie }) => {
         </div>
       </div>
 
-      {/* Glow */}
+      {/* Premium Glow */}
       <div
         className="
           absolute
@@ -157,21 +162,21 @@ const MovieCard = ({ movie }) => {
           ring-0
           group-hover:ring-2
           ring-red-500/60
-          transition
+          transition-all
           duration-500
         "
       />
 
-      {/* Bottom Shadow */}
+      {/* Bottom Gradient */}
       <div
         className="
           absolute
           bottom-0
           left-0
           right-0
-          h-24
+          h-28
           bg-gradient-to-t
-          from-black/70
+          from-black/80
           to-transparent
         "
       />
