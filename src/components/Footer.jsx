@@ -1,3 +1,7 @@
+import { Clapperboard } from "lucide-react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+
 const technologies = [
   {
     name: "React",
@@ -27,16 +31,16 @@ const technologies = [
 
 const Footer = () => {
   return (
-    <footer className="mt-20 bg-gradient-to-b from-zinc-900 via-black to-black border-t border-white/10">
+    <footer className="mt-20 border-t border-white/10 bg-gradient-to-b from-zinc-900 via-black to-black">
       <div className="max-w-7xl mx-auto px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-14">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
           {/* Brand */}
           <div>
-            <div className="relative inline-block">
-              <div className="absolute -inset-4 bg-red-600/10 blur-3xl rounded-full"></div>
+            <div className="relative inline-flex items-center gap-4">
+              <div className="absolute -inset-5 rounded-full bg-red-600/10 blur-3xl"></div>
 
               <div className="relative flex items-center gap-3">
-                <span className="text-4xl">🎬</span>
+                <Clapperboard size={40} className="text-red-600" />
 
                 <h2 className="text-4xl font-extrabold tracking-tight text-red-600">
                   GemiFlix
@@ -44,49 +48,80 @@ const Footer = () => {
               </div>
             </div>
 
-            <p className="mt-6 max-w-sm text-gray-400 text-lg leading-8">
+            <p className="mt-6 text-lg leading-8 text-gray-400 max-w-sm">
               Discover thousands of movies, watch trailers, build your personal
-              watchlist, and explore films with AI-powered recommendations.
+              watchlist, and explore cinema with AI-powered recommendations.
             </p>
           </div>
 
-          {/* Connect */}
+          {/* About Me */}
           <div>
-            <h3 className="text-white text-2xl font-semibold mb-6">
-              Connect With Me
-            </h3>
+            <p className="text-1xl md:text-2xl font-medium leading-relaxed text-gray-200 mb-8">
+              Designed & Developed with
+              <span className="mx-2 text-red-500">❤️</span>
+              by
+              <span className="ml-2 font-bold text-red-500">
+                Tufeeq Mushtaq
+              </span>
+            </p>
 
-            <div className="space-y-5">
+            <div className="space-y-3">
               <a
                 href="https://github.com/tufeeqmushtaqnahami"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-gray-400 hover:text-white transition duration-300"
+                className="group flex items-center gap-3 rounded-lg px-3 py-2 transition-all duration-300 hover:bg-zinc-900/60"
               >
-                💻 GitHub
+                <FaGithub
+                  size={18}
+                  className="text-gray-400 group-hover:text-white transition"
+                />
+
+                <div>
+                  <p className="text-sm font-medium text-gray-200">GitHub</p>
+
+                  <p className="text-xs text-gray-500">
+                    github.com/tufeeqmushtaqnahami
+                  </p>
+                </div>
               </a>
 
               <a
                 href="https://www.linkedin.com/in/tufeeq-mushtaq-024b7a1b9/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-gray-400 hover:text-blue-400 transition duration-300"
+                className="group flex items-center gap-3 rounded-lg px-3 py-2 transition-all duration-300 hover:bg-zinc-900/60"
               >
-                💼 LinkedIn
+                <FaLinkedin size={18} className="text-blue-500" />
+
+                <div>
+                  <p className="text-sm font-medium text-gray-200">LinkedIn</p>
+
+                  <p className="text-xs text-gray-500">
+                    linkedin.com/in/tufeeq-mushtaq
+                  </p>
+                </div>
               </a>
 
               <a
                 href="mailto:tufeeqmushtaq000@gmail.com"
-                className="flex items-center gap-3 text-gray-400 hover:text-red-400 transition duration-300"
+                className="group flex items-center gap-3 rounded-lg px-3 py-2 transition-all duration-300 hover:bg-zinc-900/60"
               >
-                📧 Email Me
+                <MdEmail size={18} className="text-red-500" />
+
+                <div>
+                  <p className="text-sm font-medium text-gray-200">Email</p>
+
+                  <p className="text-xs text-gray-500">
+                    tufeeqmushtaq000@gmail.com
+                  </p>
+                </div>
               </a>
             </div>
           </div>
-
-          {/* Tech Stack */}
+          {/* Built With */}
           <div>
-            <h3 className="text-white text-2xl font-semibold mb-6">
+            <h3 className="text-2xl font-semibold text-white mb-6">
               Built With
             </h3>
 
@@ -101,17 +136,17 @@ const Footer = () => {
                     px-4
                     py-2
                     rounded-full
-                    bg-zinc-800
                     border
                     border-zinc-700
-                    text-gray-300
+                    bg-zinc-800/80
                     text-sm
+                    text-gray-300
                     transition-all
                     duration-300
+                    hover:-translate-y-1
                     hover:bg-red-600
                     hover:border-red-500
                     hover:text-white
-                    hover:-translate-y-1
                     hover:shadow-lg
                     hover:shadow-red-600/20
                   "
@@ -123,8 +158,9 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-14 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-gray-500 text-sm">
+        {/* Bottom */}
+        <div className="mt-14 border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-5">
+          <p className="text-sm text-gray-500">
             © 2026 GemiFlix. All Rights Reserved.
           </p>
 
@@ -136,18 +172,19 @@ const Footer = () => {
               })
             }
             className="
-              px-6
-              py-3
+              px-5
+              py-2.5
               rounded-full
               bg-gradient-to-r
               from-red-600
               to-red-500
               text-white
+              text-sm
               font-medium
               transition-all
               duration-300
               hover:scale-105
-              hover:shadow-xl
+              hover:shadow-lg
               hover:shadow-red-600/30
             "
           >
