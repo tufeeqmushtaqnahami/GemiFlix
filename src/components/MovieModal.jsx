@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { X, Star, Clock, Calendar } from "lucide-react";
 import { closeModal } from "../utils/modalSlice";
 import useMovieDetails from "../hooks/useMovieDetails";
+import useMovieTrailerModal from "../hooks/useMovieTrailerModal";
 import { IMG_CDN_URL } from "../utils/Constants";
 
 const MovieModal = () => {
@@ -11,6 +12,7 @@ const MovieModal = () => {
   const { isOpen, movieId } = useSelector((store) => store.modal);
 
   const movie = useMovieDetails(movieId);
+  const trailerKey = useMovieTrailerModal(movieId);
 
   if (!isOpen) return null;
 
@@ -34,68 +36,78 @@ const MovieModal = () => {
         className="
           relative
           w-full
-          max-w-5xl
-          max-h-[90vh]
-          overflow-y-auto
+          max-w-4xl
           rounded-3xl
           bg-zinc-900
           shadow-2xl
+          overflow-hidden
           animate-loginCard
         "
       >
-        {/* Close Button */}
-        <button
-          onClick={() => dispatch(closeModal())}
-          className="
-            absolute
-            top-5
-            right-5
-            z-50
-            rounded-full
-            bg-black/70
-            p-2
-            backdrop-blur-md
-            transition
-            duration-300
-            hover:bg-red-600
-            hover:scale-110
-          "
-        >
-          <X className="text-white" size={24} />
-        </button>
+        {/* Header */}
+        <div className="flex items-center justify-between h-16 px-6 bg-zinc-950 border-b border-zinc-800">
+          <div className="flex items-center gap-3 overflow-hidden">
+            <span className="text-2xl">🎬</span>
 
-        {/* Backdrop */}
-        <div className="relative">
-          <img
-            src={IMG_CDN_URL + movie.backdrop_path}
-            alt={movie.title}
-            className="w-full h-[420px] object-cover"
-          />
+            <h2 className="text-white text-xl md:text-2xl font-semibold truncate">
+              {movie.title}
+            </h2>
+          </div>
 
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/30 to-transparent" />
+          <button
+            onClick={() => dispatch(closeModal())}
+            className="
+              w-10
+              h-10
+              flex
+              items-center
+              justify-center
+              rounded-full
+              bg-zinc-800
+              hover:bg-red-600
+              transition-all
+              duration-300
+              hover:scale-110
+              flex-shrink-0
+            "
+          >
+            <X className="text-white" size={22} />
+          </button>
+        </div>
+
+        {/* Trailer */}
+        <div className="relative h-[220px] md:h-[260px] lg:h-[300px] bg-black">
+          {trailerKey ? (
+            <iframe
+              className="w-full h-full"
+              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1`}
+              title={movie.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          ) : (
+            <img
+              src={IMG_CDN_URL + movie.backdrop_path}
+              alt={movie.title}
+              className="w-full h-full object-cover"
+            />
+          )}
+
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent pointer-events-none" />
         </div>
 
         {/* Content */}
-        <div className="p-6 md:p-8">
-          {/* Title */}
-          <h1 className="text-3xl md:text-5xl font-bold text-white">
-            {movie.title}
-          </h1>
-
-          {/* Tagline */}
+        <div className="p-4 md:p-5">
           {movie.tagline && (
-            <p className="text-red-400 italic mt-2 text-lg">
+            <p className="text-red-400 italic mb-4">
               {movie.tagline}
             </p>
           )}
 
           {/* Movie Info */}
-          <div className="flex flex-wrap gap-6 mt-6 text-gray-300">
+          <div className="flex flex-wrap gap-5 text-gray-300 text-sm md:text-base">
             <div className="flex items-center gap-2">
-              <Star
-                className="text-yellow-400 fill-yellow-400"
-                size={18}
-              />
+              <Star className="text-yellow-400 fill-yellow-400" size={18} />
               <span>{movie.vote_average?.toFixed(1)} IMDb</span>
             </div>
 
@@ -109,22 +121,20 @@ const MovieModal = () => {
               <span>{movie.release_date}</span>
             </div>
           </div>
-
-          {/* Genres */}
-          <div className="flex flex-wrap gap-3 mt-6">
+                    {/* Genres */}
+          <div className="flex flex-wrap gap-2 mt-4">
             {movie.genres?.map((genre) => (
               <span
                 key={genre.id}
                 className="
-                  px-4
-                  py-2
+                  px-3
+                  py-1
                   rounded-full
                   bg-white/10
                   border
                   border-white/20
-                  backdrop-blur-sm
                   text-white
-                  text-sm
+                  text-xs
                 "
               >
                 {genre.name}
@@ -133,11 +143,11 @@ const MovieModal = () => {
           </div>
 
           {/* Overview */}
-          <h2 className="text-2xl text-white font-semibold mt-8 mb-3">
+          <h2 className="text-lg md:text-xl text-white font-semibold mt-4 mb-2">
             Overview
           </h2>
 
-          <p className="text-gray-300 leading-8">
+          <p className="text-gray-300 leading-6 text-sm md:text-base">
             {movie.overview}
           </p>
         </div>
