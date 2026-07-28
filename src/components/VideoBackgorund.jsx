@@ -29,13 +29,12 @@ const VideoBackgorund = ({ movieId }) => {
           lg:scale-110
           
         "
-        allow="autoplay; encrypted-media; picture-in-picture"
-        frameBorder="0"
-        src={`https://www.youtube.com/embed/${trailerVideo.key}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&playsinline=1&loop=1&playlist=${trailerVideo.key}&disablekb=1`}
-        title="Trailer"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />
+       frameBorder="0"
+src={`https://www.youtube.com/embed/${trailerVideo.key}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&playsinline=1&loop=1&playlist=${trailerVideo.key}`}
+title="Trailer"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allowFullScreen
+/>
 
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/30" />
