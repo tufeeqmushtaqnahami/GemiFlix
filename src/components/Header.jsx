@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { signOut, onAuthStateChanged } from "firebase/auth";
+import React, { useEffect, useState, useRef } from "react";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/Firebase";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,6 +17,7 @@ import {
   Sparkles,
   Menu,
   X,
+  ChevronDown,
 } from "lucide-react";
 
 const NAV_LINKS = [
@@ -35,28 +36,57 @@ const Header = () => {
 
   const [showBackground, setShowBackground] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showDesktopDropdown, setShowDesktopDropdown] = useState(false);
+  
+  const dropdownRef = useRef(null);
 
+  // Handle background change on scroll
   useEffect(() => {
     const handleScroll = () => setShowBackground(window.scrollY > 60);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDesktopDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Safe Authentication & Smart Routing Listener
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const currentPath = window.location.pathname;
+
       if (currentUser) {
         const { uid, email, displayName, photoURL } = currentUser;
         dispatch(addUser({ uid, email, displayName, photoURL }));
-        navigate("/browse");
+        
+        // Only redirect to browse if they are stuck on the login landing page
+        if (currentPath === "/") {
+          navigate("/browse");
+        }
       } else {
         dispatch(removeUser());
-        navigate("/");
+        
+        // Only redirect to landing if they are trying to access protected areas
+        if (currentPath !== "/") {
+          navigate("/");
+        }
       }
     });
     return () => unsubscribe();
   }, [dispatch, navigate]);
 
-  const handleSignOut = () => signOut(auth).catch(() => navigate("/error"));
+  const handleSignOut = () => {
+    setShowDesktopDropdown(false);
+    signOut(auth).catch(() => navigate("/error"));
+  };
 
   const handleGptSearchClick = () => {
     dispatch(toggleGptSearchView());
@@ -91,29 +121,31 @@ const Header = () => {
           : "bg-gradient-to-b from-black/95 via-black/50 to-transparent py-2"
       }`}
     >
-      {/* 1. Added explicit horizontal container margins (px-4 sm:px-8) */}
       <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-10">
         <div className="flex items-center justify-between h-16 sm:h-20">
           
           {/* --- Left Side --- */}
           <div className="flex items-center gap-4 sm:gap-6 lg:gap-10">
-            <button
-              onClick={() => setShowMobileMenu(true)}
-              className="lg:hidden p-1.5 text-white/80 hover:text-white rounded-full hover:bg-white/10 transition-all outline-none"
-              aria-label="Menu"
-            >
-              <Menu size={24} />
-            </button>
+            {/* Mobile Hamburger: Only visible if user is logged in */}
+            {user && (
+              <button
+                onClick={() => setShowMobileMenu(true)}
+                className="lg:hidden p-1.5 text-white/80 hover:text-white rounded-full hover:bg-white/10 transition-all outline-none"
+                aria-label="Menu"
+              >
+                <Menu size={24} />
+              </button>
+            )}
 
             <h1
-              onClick={() => navigate("/browse")}
+              onClick={() => navigate(user ? "/browse" : "/")}
               className="text-xl sm:text-2xl md:text-3xl font-black cursor-pointer tracking-tighter select-none hover:scale-105 transition-transform duration-300"
             >
               <span className="bg-gradient-to-r from-gray-100 to-gray-400 bg-clip-text text-transparent drop-shadow-sm">Gemi</span>
               <span className="text-red-600 drop-shadow-[0_0_12px_rgba(220,38,38,0.4)]">Flix</span>
             </h1>
 
-            {/* Desktop Nav */}
+            {/* Desktop Navigation Links: Only visible if user is logged in */}
             {user && (
               <nav className="hidden lg:flex items-center gap-2 ml-4">
                 {NAV_LINKS.map(({ title, icon: Icon, target }) => (
@@ -132,7 +164,6 @@ const Header = () => {
 
           {/* --- Right Side --- */}
           {user && (
-            // 2. Increased gap here to gap-5 sm:gap-6 to space out Search and Ask Gemi
             <div className="flex items-center gap-5 sm:gap-6">
               
               {/* Premium Search Button */}
@@ -145,89 +176,124 @@ const Header = () => {
               </button>
 
               {/* Magical Gemini Button */}
-                  <button
-  onClick={handleGptSearchClick}
-  className="group flex items-center justify-center px-5 py-2.5 sm:px-6 sm:py-3.5 rounded-full bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 hover:brightness-110 text-white font-bold tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-indigo-950/50 hover:shadow-[0_0_35px_rgba(99,102,241,0.5)] outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
->
-  <Sparkles 
-    size={18} 
-    className="mr-1.5 sm:mr-2 sm:w-[20px] sm:h-[20px] text-white/90 group-hover:scale-110 group-hover:rotate-45 transition-all duration-300 ease-out" 
-  />
-  <span className="text-sm sm:text-base tracking-wide whitespace-nowrap select-none">
-    {/* Mobile Text */}
-    <span className="sm:hidden">
-      {showGptSearch ? "Back" : "Ask Gemi"}
-    </span>
-    
-    {/* Desktop Text */}
-    <span className="hidden sm:inline">
-      {showGptSearch ? "Back to Browse" : "Gemini Search"}
-    </span>
-  </span>
-</button>
+              <button
+                onClick={handleGptSearchClick}
+                className="group flex items-center justify-center px-5 py-2.5 sm:px-6 sm:py-3.5 rounded-full bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 hover:brightness-110 text-white font-bold tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-indigo-950/50 hover:shadow-[0_0_35px_rgba(99,102,241,0.5)] outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              >
+                <Sparkles 
+                  size={18} 
+                  className="mr-1.5 sm:mr-2 sm:w-[20px] sm:h-[20px] text-white/90 group-hover:scale-110 group-hover:rotate-45 transition-all duration-300 ease-out" 
+                />
+                <span className="text-sm sm:text-base tracking-wide whitespace-nowrap select-none">
+                  <span className="sm:hidden">{showGptSearch ? "Back" : "Ask Gemi"}</span>
+                  <span className="hidden sm:inline">{showGptSearch ? "Back to Browse" : "Gemini Search"}</span>
+                </span>
+              </button>
+
+              {/* Desktop Interactive Profile Dropdown */}
+              <div className="hidden lg:block relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setShowDesktopDropdown(!showDesktopDropdown)}
+                  className="flex items-center gap-2 p-1 rounded-full hover:bg-white/5 border border-transparent hover:border-white/10 transition-all duration-300 outline-none group"
+                >
+                  <UserAvatar sizeClasses="w-9 h-9" />
+                  <ChevronDown 
+                    size={16} 
+                    className={`text-gray-400 group-hover:text-white transition-transform duration-300 ${
+                      showDesktopDropdown ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+
+                {/* Dropdown Menu Overlay */}
+                {showDesktopDropdown && (
+                  <div className="absolute right-0 mt-3 w-64 bg-zinc-950/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.7)] py-3 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="px-4 py-2.5">
+                      <p className="text-sm text-gray-400 font-medium">Signed in as</p>
+                      <p className="text-white font-bold text-base truncate">{user?.displayName || "Guest"}</p>
+                      <p className="text-xs text-gray-400 truncate mt-0.5">{user?.email}</p>
+                    </div>
+
+                    <div className="h-px bg-white/10 my-2" />
+
+                    <div className="px-2">
+                      <button
+                        onClick={handleSignOut}
+                        className="w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-red-400 hover:bg-red-600/20 hover:text-red-300 active:scale-95 transition-all duration-200"
+                      >
+                        <LogOut size={18} />
+                        <span className="font-semibold text-sm">Sign Out</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
             </div>
           )}
         </div>
       </div>
 
       {/* --- Mobile Menu --- */}
-      <div
-        onClick={() => setShowMobileMenu(false)}
-        className={`fixed inset-0 z-[100] lg:hidden transition-all duration-500 ${
-          showMobileMenu ? "visible opacity-100 bg-black/60 backdrop-blur-sm" : "invisible opacity-0"
-        }`}
-      >
-        <aside
-          onClick={(e) => e.stopPropagation()}
-          className={`fixed top-0 left-0 h-screen w-[280px] bg-zinc-950/95 backdrop-blur-2xl border-r border-white/10 shadow-[20px_0_40px_rgba(0,0,0,0.5)] flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            showMobileMenu ? "translate-x-0" : "-translate-x-full"
+      {user && (
+        <div
+          onClick={() => setShowMobileMenu(false)}
+          className={`fixed inset-0 z-[100] lg:hidden transition-all duration-500 ${
+            showMobileMenu ? "visible opacity-100 bg-black/60 backdrop-blur-sm" : "invisible opacity-0"
           }`}
         >
-          <div className="flex items-center justify-between p-6 pb-2">
-            <h2 onClick={() => handleNavClick("top")} className="text-2xl font-black tracking-tighter">
-              <span className="text-white">Gemi</span>
-              <span className="text-red-600">Flix</span>
-            </h2>
-            <button
-              onClick={() => setShowMobileMenu(false)}
-              className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-all"
-            >
-              <X size={20} />
-            </button>
-          </div>
-
-          <div className="px-6 py-4">
-            <UserAvatar sizeClasses="w-14 h-14 mb-4 shadow-lg" />
-            <h3 className="text-white font-bold text-lg truncate">{user?.displayName || "Guest"}</h3>
-            <p className="text-sm text-gray-400 truncate">{user?.email}</p>
-          </div>
-
-          <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-2" />
-
-          <nav className="flex-1 overflow-y-auto px-4 py-4 space-y-1">
-            {NAV_LINKS.map(({ title, icon: Icon, target }) => (
+          <aside
+            onClick={(e) => e.stopPropagation()}
+            className={`fixed top-0 left-0 h-screen w-[280px] bg-zinc-950/95 backdrop-blur-2xl border-r border-white/10 shadow-[20px_0_40px_rgba(0,0,0,0.5)] flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              showMobileMenu ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
+            <div className="flex items-center justify-between p-6 pb-2">
+              <h2 onClick={() => handleNavClick("top")} className="text-2xl font-black tracking-tighter">
+                <span className="text-white">Gemi</span>
+                <span className="text-red-600">Flix</span>
+              </h2>
               <button
-                key={title}
-                onClick={() => handleNavClick(target)}
-                className="w-full flex items-center gap-4 rounded-xl px-4 py-3.5 text-gray-300 hover:bg-white/5 hover:text-white active:scale-95 transition-all"
+                onClick={() => setShowMobileMenu(false)}
+                className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-all"
               >
-                <Icon size={20} className="text-gray-500" />
-                <span className="font-medium">{title}</span>
+                <X size={20} />
               </button>
-            ))}
+            </div>
 
-            <div className="h-px bg-white/5 my-4 mx-2" />
+            <div className="px-6 py-4">
+              <UserAvatar sizeClasses="w-14 h-14 mb-4 shadow-lg" />
+              <h3 className="text-white font-bold text-lg truncate">{user?.displayName || "Guest"}</h3>
+              <p className="text-sm text-gray-400 truncate">{user?.email}</p>
+            </div>
 
-            <button
-              onClick={handleSignOut}
-              className="w-full flex items-center gap-4 rounded-xl px-4 py-3.5 text-red-400 hover:bg-red-600/20 hover:text-red-300 active:scale-95 transition-all"
-            >
-              <LogOut size={20} />
-              <span className="font-medium">Sign Out</span>
-            </button>
-          </nav>
-        </aside>
-      </div>
+            <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-2" />
+
+            <nav className="flex-1 overflow-y-auto px-4 py-4 space-y-1">
+              {NAV_LINKS.map(({ title, icon: Icon, target }) => (
+                <button
+                  key={title}
+                  onClick={() => handleNavClick(target)}
+                  className="w-full flex items-center gap-4 rounded-xl px-4 py-3.5 text-gray-300 hover:bg-white/5 hover:text-white active:scale-95 transition-all"
+                >
+                  <Icon size={20} className="text-gray-500" />
+                  <span className="font-medium">{title}</span>
+                </button>
+              ))}
+
+              <div className="h-px bg-white/5 my-4 mx-2" />
+
+              <button
+                onClick={handleSignOut}
+                className="w-full flex items-center gap-4 rounded-xl px-4 py-3.5 text-red-400 hover:bg-red-600/20 hover:text-red-300 active:scale-95 transition-all"
+              >
+                <LogOut size={20} />
+                <span className="font-medium">Sign Out</span>
+              </button>
+            </nav>
+          </aside>
+        </div>
+      )}
     </header>
   );
 };
