@@ -4,9 +4,9 @@ import { auth } from "../utils/Firebase";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO } from "../utils/Constants";
 import { toggleGptSearchView } from "../utils/GptSlice";
 import { openSearch } from "../utils/searchSlice";
+
 
 import {
   Home,
@@ -109,12 +109,12 @@ const Header = () => {
           <div className="flex items-center gap-12">
 
             <h1
-  onClick={() => navigate("/browse")}
-  className="text-3xl font-extrabold cursor-pointer tracking-tight select-none"
->
-  <span className="text-white">Gemi</span>
-  <span className="text-red-500">Flix</span>
-</h1>
+              onClick={() => navigate("/browse")}
+              className="text-3xl font-extrabold cursor-pointer tracking-tight select-none"
+            >
+              <span className="text-white">Gemi</span>
+              <span className="text-red-500">Flix</span>
+            </h1>
 
             {user && (
               <nav className="hidden lg:flex items-center gap-8">
@@ -185,40 +185,72 @@ const Header = () => {
 
           {/* Right Side */}
           {user && (
-            <div className="flex items-center gap-5">
-<button
-  onClick={handleGptSearchClick}
-  className="
-    group
-    hidden md:flex
-    items-center gap-2
-    px-6 py-2.5
-    rounded-full
-    bg-indigo-700
-    text-white
-    font-semibold
-    hover:bg-indigo-600
-    transition-all duration-300
-    shadow-md
-    animate-[attention_8s_linear_infinite]
-  "
->
-  <Sparkles
-    size={18}
-    className="transition-transform duration-300 group-hover:rotate-12"
-  />
+            <div className="flex items-center gap-4">
 
-  <span>
-    {showGptSearch ? "Back to Browse" : "Ask Gemini"}
-  </span>
-</button>
+              {/* Search Button */}
+                        <button
+                  onClick={() => dispatch(openSearch())}
+                  className="
+                    group
+                    flex items-center justify-center
+                    w-11 h-11
+                    rounded-full
+                    bg-white/10
+                    border border-white/10
+                    backdrop-blur-md
+                    hover:bg-white/20
+                    hover:border-white/20
+                    hover:scale-110
+                    active:scale-95
+                    transition-all duration-300
+                    shadow-lg hover:shadow-white/10
+                  "
+                >
+                  <Search
+                    size={20}
+                    strokeWidth={2.5}
+                    className="
+                      text-white
+                      transition-all duration-300
+                      group-hover:rotate-12
+                      group-hover:scale-110
+                    "
+                  />
+                </button> 
 
-              {/* Profile Dropdown starts here in Part 2 */}
-                            <div
+              {/* Gemini Button */}
+              <button
+                onClick={handleGptSearchClick}
+                className="
+                  group
+                  hidden md:flex
+                  items-center gap-2
+                  px-6 py-2.5
+                  rounded-full
+                  bg-indigo-700
+                  text-white
+                  font-semibold
+                  hover:bg-indigo-600
+                  transition-all duration-300
+                  shadow-md
+                  animate-[attention_8s_linear_infinite]
+                "
+              >
+                <Sparkles
+                  size={18}
+                  className="transition-transform duration-300 group-hover:rotate-12"
+                />
+
+                <span>
+                  {showGptSearch ? "Back to Browse" : "Ask Gemini"}
+                </span>
+              </button>
+
+              {/* Profile */}
+              <div
                 ref={profileMenuRef}
                 className="relative"
               >
-                {/* Avatar Button */}
                 <button
                   onClick={() =>
                     setShowProfileMenu(!showProfileMenu)
@@ -259,7 +291,6 @@ const Header = () => {
                   />
                 </button>
 
-                {/* Dropdown */}
                 {showProfileMenu && (
                   <div className="absolute right-0 mt-3 w-44 rounded-xl border border-zinc-700 bg-zinc-900 shadow-2xl overflow-hidden">
 
