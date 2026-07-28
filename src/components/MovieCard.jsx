@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Play, Bookmark, BookmarkCheck } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { IMG_CDN_URL } from "../utils/Constants";
@@ -37,7 +38,10 @@ const MovieCard = ({ movie }) => {
       tabIndex={0}
       aria-label={`Open ${title}`}
       onKeyDown={(e) => {
-        if (e.key === "Enter") handleMovieClick();
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleMovieClick();
+        }
       }}
       className="
         relative
@@ -109,8 +113,9 @@ const MovieCard = ({ movie }) => {
         loading="lazy"
         decoding="async"
         draggable="false"
+        style={{ aspectRatio: "2 / 3" }}
         onError={(e) => {
-          e.target.src = noPoster;
+          e.currentTarget.src = noPoster;
         }}
         className="
           w-full
@@ -234,4 +239,4 @@ const MovieCard = ({ movie }) => {
   );
 };
 
-export default MovieCard;
+export default memo(MovieCard);
