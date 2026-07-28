@@ -50,3 +50,4 @@ const VideoBackgorund = ({ movieId }) => {
 };
 
 export default VideoBackgorund;
+

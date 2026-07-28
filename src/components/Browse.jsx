@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 import Header from "./Header";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
@@ -5,8 +7,6 @@ import GptSearch from "./GptSearch";
 import Footer from "./Footer";
 import MovieModal from "./MovieModal";
 import SearchModal from "./SearchModal";
-
-import { useSelector } from "react-redux";
 
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
 import usePopularMovies from "../hooks/UsePopularMovies";
@@ -19,6 +19,7 @@ const Browse = () => {
     (store) => store.gpt.showGptSearch
   );
 
+  // Fetch Movies
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();
@@ -29,7 +30,7 @@ const Browse = () => {
     <div className="min-h-screen bg-black overflow-x-hidden">
       <Header />
 
-      <main className="w-full">
+      <main className="relative w-full">
         {showGptSearch ? (
           <GptSearch />
         ) : (
@@ -41,7 +42,7 @@ const Browse = () => {
         )}
       </main>
 
-      {/* Movie Details Modal */}
+      {/* Global Modals */}
       <MovieModal />
       <SearchModal />
     </div>
@@ -49,4 +50,3 @@ const Browse = () => {
 };
 
 export default Browse;
-

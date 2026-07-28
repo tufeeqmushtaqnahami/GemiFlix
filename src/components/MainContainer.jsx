@@ -1,19 +1,19 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import VideoTitle from "./VideoTitle";
 import VideoBackgorund from "./VideoBackgorund";
 
 const MainContainer = () => {
-  const movies = useSelector(
-    (store) => store.movies?.nowPlayingMovies
+  const movie = useSelector(
+    (store) => store.movies?.nowPlayingMovies?.[0]
   );
 
-  if (!movies || movies.length === 0) return null;
+  if (!movie) return null;
 
-  const { original_title, overview, id } = movies[0];
+  const { original_title, overview, id } = movie;
 
   return (
     <section
+      aria-label="Featured Movie"
       className="
         relative
         w-full
@@ -21,7 +21,7 @@ const MainContainer = () => {
         sm:h-[60vh]
         md:h-[70vh]
         lg:h-[85vh]
-        xl:h-screen
+        xl:min-h-screen
         overflow-hidden
         bg-black
       "

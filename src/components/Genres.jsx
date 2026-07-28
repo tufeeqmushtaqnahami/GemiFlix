@@ -48,32 +48,102 @@ const Genres = () => {
   return (
     <section
       id="genres-section"
-      className="px-6 md:px-10 py-14"
+      className="
+        py-12
+        sm:py-14
+        lg:py-16
+      "
     >
-      <h2 className="text-3xl font-bold text-white mb-8">
-        Browse by Genre
-      </h2>
+      {/* Heading */}
+      <div className="mb-8 lg:mb-10">
+        <h2
+          className="
+            text-xl
+            sm:text-2xl
+            md:text-3xl
+            lg:text-4xl
+            font-bold
+            text-white
+          "
+        >
+          Browse by Genre
+        </h2>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 mb-10">
+        <p className="mt-2 text-sm sm:text-base text-gray-400">
+          Discover movies based on your favorite genres.
+        </p>
+      </div>
+
+      {/* Genre Buttons */}
+      <div
+        className="
+          grid
+          grid-cols-2
+          sm:grid-cols-3
+          lg:grid-cols-6
+          gap-3
+          sm:gap-4
+          lg:gap-5
+          mb-10
+        "
+      >
         {genres.map((genre) => {
           const Icon = genre.icon;
 
           return (
             <button
               key={genre.id}
+              type="button"
               onClick={() => setSelectedGenre(genre)}
-              className={`group rounded-xl border p-6 transition-all duration-300 ${
-                selectedGenre.id === genre.id
-                  ? "bg-red-600 border-red-600 shadow-lg shadow-red-500/30"
-                  : "bg-zinc-900 border-zinc-700 hover:border-red-500 hover:bg-zinc-800"
-              }`}
+              aria-pressed={selectedGenre.id === genre.id}
+              className={`
+                group
+                rounded-xl
+                border
+
+                p-4
+                sm:p-5
+                lg:p-6
+
+                transition-all
+                duration-300
+
+                hover:-translate-y-1
+
+                ${
+                  selectedGenre.id === genre.id
+                    ? "bg-red-600 border-red-600 shadow-lg shadow-red-500/30"
+                    : "bg-zinc-900 border-zinc-700 hover:border-red-500 hover:bg-zinc-800"
+                }
+              `}
             >
               <Icon
-                size={36}
-                className="mx-auto mb-4 text-white transition-transform duration-300 group-hover:scale-110"
+                className="
+                  mx-auto
+                  mb-3
+                  sm:mb-4
+
+                  w-8
+                  h-8
+                  sm:w-9
+                  sm:h-9
+
+                  text-white
+                  transition-transform
+                  duration-300
+                  group-hover:scale-110
+                "
               />
 
-              <p className="text-white font-semibold text-sm md:text-base">
+              <p
+                className="
+                  text-white
+                  font-semibold
+
+                  text-sm
+                  sm:text-base
+                "
+              >
                 {genre.name}
               </p>
             </button>
@@ -81,6 +151,7 @@ const Genres = () => {
         })}
       </div>
 
+      {/* Movies */}
       <GenresMovieList
         genreId={selectedGenre.id}
         genreName={selectedGenre.name}

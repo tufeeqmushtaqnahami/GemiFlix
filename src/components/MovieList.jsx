@@ -36,7 +36,10 @@ const MovieList = ({ title, movies }) => {
 
     if (!slider) return;
 
-    const amount = slider.clientWidth * 0.8;
+    const amount =
+      window.innerWidth < 768
+        ? slider.clientWidth * 0.9
+        : slider.clientWidth * 0.8;
 
     slider.scrollBy({
       left: direction === "left" ? -amount : amount,
@@ -51,16 +54,35 @@ const MovieList = ({ title, movies }) => {
   return (
     <section className="group">
       {/* Header */}
-      <div className="flex items-center justify-between mb-5 px-1">
+      <div className="flex items-center justify-between mb-4 md:mb-5 px-1">
         <div className="flex items-center gap-3">
-          <div className="w-1.5 h-8 rounded-full bg-gradient-to-b from-red-500 to-pink-500"></div>
+          <div className="w-1.5 h-7 md:h-8 rounded-full bg-gradient-to-b from-red-500 to-pink-500" />
 
-          <h2 className="text-2xl md:text-3xl font-bold text-white">
+          <h2
+            className="
+              text-lg
+              sm:text-xl
+              md:text-2xl
+              lg:text-3xl
+              font-bold
+              text-white
+            "
+          >
             {title}
           </h2>
         </div>
 
-        <button className="hidden md:flex items-center gap-2 text-gray-400 hover:text-white transition">
+        <button
+          className="
+            hidden
+            md:flex
+            items-center
+            gap-2
+            text-gray-400
+            hover:text-white
+            transition
+          "
+        >
           View All
           <ChevronRight size={18} />
         </button>
@@ -72,8 +94,11 @@ const MovieList = ({ title, movies }) => {
         {/* Left Arrow */}
         {showLeft && (
           <button
+            aria-label="Scroll movies left"
             onClick={() => scroll("left")}
             className="
+              hidden
+              md:flex
               absolute
               left-0
               top-0
@@ -83,10 +108,11 @@ const MovieList = ({ title, movies }) => {
               group-hover:opacity-100
               transition-all
               duration-300
-              flex
               items-center
               justify-center
-              w-16
+              w-10
+              sm:w-12
+              md:w-16
               hover:w-20
               bg-gradient-to-r
               from-black/90
@@ -94,8 +120,11 @@ const MovieList = ({ title, movies }) => {
             "
           >
             <ChevronLeft
-              size={42}
               className="
+                w-7
+                h-7
+                md:w-10
+                md:h-10
                 text-white
                 transition-transform
                 duration-300
@@ -105,22 +134,56 @@ const MovieList = ({ title, movies }) => {
           </button>
         )}
 
-      {/* Left Fade */}
-<div className="absolute left-0 inset-y-0 w-6 bg-gradient-to-r from-black/70 via-black/30 to-transparent z-10 pointer-events-none"></div>
+        {/* Left Fade */}
+        <div
+          className="
+            absolute
+            left-0
+            inset-y-0
+            w-8
+            md:w-10
+            bg-gradient-to-r
+            from-black/70
+            via-black/30
+            to-transparent
+            z-10
+            pointer-events-none
+          "
+        />
 
-{/* Right Fade */}
-<div className="absolute right-0 inset-y-0 w-6 bg-gradient-to-l from-black/70 via-black/30 to-transparent z-10 pointer-events-none"></div>
+        {/* Right Fade */}
+        <div
+          className="
+            absolute
+            right-0
+            inset-y-0
+            w-8
+            md:w-10
+            bg-gradient-to-l
+            from-black/70
+            via-black/30
+            to-transparent
+            z-10
+            pointer-events-none
+          "
+        />
 
+        {/* Movies */}
         <div
           ref={sliderRef}
           onScroll={updateButtons}
           className="
             flex
-            gap-5
+            gap-3
+            sm:gap-4
+            md:gap-5
+            lg:gap-6
             overflow-x-auto
-            pb-4
             scroll-smooth
             no-scrollbar
+            pb-3
+            sm:pb-4
+            md:pb-5
           "
         >
           {movies.map((movie) => (
@@ -131,11 +194,14 @@ const MovieList = ({ title, movies }) => {
           ))}
         </div>
 
-                {/* Right Arrow */}
+        {/* Right Arrow */}
         {showRight && (
           <button
+            aria-label="Scroll movies right"
             onClick={() => scroll("right")}
             className="
+              hidden
+              md:flex
               absolute
               right-0
               top-0
@@ -145,10 +211,11 @@ const MovieList = ({ title, movies }) => {
               group-hover:opacity-100
               transition-all
               duration-300
-              flex
               items-center
               justify-center
-              w-16
+              w-10
+              sm:w-12
+              md:w-16
               hover:w-20
               bg-gradient-to-l
               from-black/90
@@ -156,8 +223,11 @@ const MovieList = ({ title, movies }) => {
             "
           >
             <ChevronRight
-              size={42}
               className="
+                w-7
+                h-7
+                md:w-10
+                md:h-10
                 text-white
                 transition-transform
                 duration-300

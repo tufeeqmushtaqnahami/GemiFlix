@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
-import Footer from "./Footer";
 import { FcGoogle } from "react-icons/fc";
 import { Mail, LockKeyhole, User } from "lucide-react";
 import { checkValidData } from "../utils/Validate";
@@ -334,8 +333,6 @@ animate-loginCard
           </p>
         </form>
       </div>
-
-      <Footer />
     </div>
   );
 };
