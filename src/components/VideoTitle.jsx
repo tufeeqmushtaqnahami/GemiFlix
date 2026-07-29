@@ -1,6 +1,33 @@
 import { Play, Info } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { openModal } from "../utils/modalSlice"
 
-const VideoTitle = ({ title, overview }) => {
+const VideoTitle = ({id, title, overview }) => {
+  
+   const dispatch = useDispatch();
+
+  const handlePlay = () => {
+    dispatch(
+      openModal({
+        movieId: id,
+        modalType: "trailer",
+      })
+    );
+  };
+
+  const handleMoreInfo = () => {
+    dispatch(
+      openModal({
+        movieId: id,
+        modalType: "details",
+      })
+    );
+  };
+
+
+
+
+
   return (
     <div
       className="
@@ -83,6 +110,7 @@ const VideoTitle = ({ title, overview }) => {
                 transition-all
                 duration-300
               "
+               onClick={handlePlay}
             >
               <Play size={20} fill="black" />
               Play
@@ -106,6 +134,7 @@ const VideoTitle = ({ title, overview }) => {
                 transition-all
                 duration-300
               "
+               onClick={handleMoreInfo}
             >
               <Info size={20} />
               More Info

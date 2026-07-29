@@ -30,6 +30,7 @@ const MainContainer = () => {
 
       <div className="absolute inset-0 z-20">
         <VideoTitle
+          id={id}
           title={original_title}
           overview={overview}
         />
