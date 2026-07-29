@@ -22,9 +22,11 @@ const useBollywoodMovies = () => {
     }
   };
 
-  useEffect(() => {
-    getBollywoodMovies();
-  }, []);
+useEffect(() => {
+  getBollywoodMovies();
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
   return null;
 };
