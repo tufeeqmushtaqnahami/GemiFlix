@@ -17,9 +17,14 @@ const MovieCard = ({ movie }) => {
 
   const isSaved = myList.some((item) => item.id === id);
 
-  const handleMovieClick = () => {
-    dispatch(openModal(id));
-  };
+const handleMovieClick = () => {
+  dispatch(
+    openModal({
+      movieId: id,
+      modalType: "details",
+    })
+  );
+};
 
   const handleMyList = (e) => {
     e.stopPropagation();
