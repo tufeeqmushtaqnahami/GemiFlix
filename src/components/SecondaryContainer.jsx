@@ -42,14 +42,24 @@ const SecondaryContainer = () => {
           lg:space-y-16
         "
       >
-        <MovieList
-          title="Now Playing Movies"
-          movies={movies.nowPlayingMovies}
-        />
+
 
         <MovieList
           title="Trending"
           movies={movies.trendingMovies}
+        />
+
+          
+          <MovieList
+  title="Bollywood Movies"
+  movies={movies.bollywoodMovies}
+/>
+
+
+
+        <MovieList
+          title="Now Playing Movies"
+          movies={movies.nowPlayingMovies}
         />
 
         <MovieList

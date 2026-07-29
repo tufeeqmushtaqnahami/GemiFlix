@@ -13,6 +13,7 @@ import usePopularMovies from "../hooks/UsePopularMovies";
 import useTopRatedMovies from "../hooks/useTopRatedMovies";
 import useTrendingMovies from "../hooks/useTrendingMovies";
 import useUpcomingMovies from "../hooks/useUpcomingMovies";
+import useBollywoodMovies from "../hooks/useBollywoodMovies";
 
 const Browse = () => {
   const showGptSearch = useSelector(
@@ -25,6 +26,7 @@ const Browse = () => {
   useTopRatedMovies();
   useTrendingMovies();
   useUpcomingMovies();
+  useBollywoodMovies();
 
   return (
     <div className="min-h-screen bg-black overflow-x-hidden">
