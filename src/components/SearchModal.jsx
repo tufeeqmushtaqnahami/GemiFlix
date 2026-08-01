@@ -104,9 +104,15 @@ const SearchModal = () => {
             <div
               key={movie.id}
               onClick={() => {
-                dispatch(openModal(movie.id));
-                dispatch(closeSearch());
-              }}
+  dispatch(
+    openModal({
+      movieId: movie.id,
+      modalType: "details",
+    })
+  );
+
+  dispatch(closeSearch());
+}}
               className="flex items-center gap-4 p-3 mb-2 rounded-xl hover:bg-zinc-800 transition cursor-pointer"
             >
               <img
