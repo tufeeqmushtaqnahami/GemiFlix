@@ -17,17 +17,21 @@ const MainContainer = () => {
       className="
         relative
         w-full
-        h-[55vh]
-        sm:h-[60vh]
-        md:h-[70vh]
-        lg:h-[85vh]
-        xl:min-h-screen
+
+        h-[60vh]
+        sm:h-[65vh]
+        md:h-[75vh]
+        lg:h-[90vh]
+        xl:h-screen
+        2xl:h-screen
+
         overflow-hidden
         bg-black
       "
     >
       <VideoBackgorund movieId={id} />
 
+      {/* Content */}
       <div className="absolute inset-0 z-20">
         <VideoTitle
           id={id}
@@ -35,6 +39,9 @@ const MainContainer = () => {
           overview={overview}
         />
       </div>
+
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 h-32 bg-gradient-to-t from-black via-black/70 to-transparent" />
     </section>
   );
 };

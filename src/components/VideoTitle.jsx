@@ -1,10 +1,9 @@
 import { Play, Info } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { openModal } from "../utils/modalSlice"
+import { openModal } from "../utils/modalSlice";
 
-const VideoTitle = ({id, title, overview }) => {
-  
-   const dispatch = useDispatch();
+const VideoTitle = ({ id, title, overview }) => {
+  const dispatch = useDispatch();
 
   const handlePlay = () => {
     dispatch(
@@ -24,10 +23,6 @@ const VideoTitle = ({id, title, overview }) => {
     );
   };
 
-
-
-
-
   return (
     <div
       className="
@@ -36,27 +31,36 @@ const VideoTitle = ({id, title, overview }) => {
         z-20
         flex
         items-center
+
         bg-gradient-to-r
         from-black
-        via-black/70
+        via-black/75
         to-transparent
       "
     >
       <div
         className="
+          mx-auto
           w-full
+          max-w-[1800px]
+
           px-5
           sm:px-8
           md:px-12
-          lg:px-16
-          xl:px-20
-          mt-20
-          sm:mt-24
-          md:mt-28
-          lg:mt-0
+          lg:px-20
+          xl:px-28
+          2xl:px-36
         "
       >
-        <div className="max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl">
+        <div
+          className="
+            max-w-xs
+            sm:max-w-md
+            md:max-w-xl
+            lg:max-w-3xl
+            xl:max-w-4xl
+          "
+        >
           {/* Title */}
           <h1
             className="
@@ -65,8 +69,12 @@ const VideoTitle = ({id, title, overview }) => {
               md:text-5xl
               lg:text-6xl
               xl:text-7xl
+              2xl:text-8xl
+
               font-extrabold
               leading-tight
+              tracking-tight
+
               text-white
               drop-shadow-2xl
             "
@@ -79,12 +87,20 @@ const VideoTitle = ({id, title, overview }) => {
             className="
               hidden
               md:block
-              mt-5
+
+              mt-6
+
+              max-w-2xl
+              xl:max-w-3xl
+
               text-gray-200
+
               text-base
               lg:text-lg
+              xl:text-xl
+
               leading-relaxed
-              max-w-xl
+
               drop-shadow-lg
             "
           >
@@ -92,51 +108,74 @@ const VideoTitle = ({id, title, overview }) => {
           </p>
 
           {/* Buttons */}
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-6 sm:mt-8">
+          <div className="mt-8 flex flex-wrap items-center gap-4 lg:mt-10">
             <button
+              onClick={handlePlay}
               className="
                 flex
                 items-center
-                gap-2
+                gap-3
+
+                rounded-md
+
                 bg-white
                 text-black
+
+                px-6
+                py-3
+
+                lg:px-8
+                lg:py-4
+
+                text-base
+                lg:text-lg
+
                 font-semibold
-                px-5
-                sm:px-6
-                py-2.5
-                sm:py-3
-                rounded-md
-                hover:bg-gray-200
+
                 transition-all
                 duration-300
+
+                hover:scale-105
+                hover:bg-gray-200
               "
-               onClick={handlePlay}
             >
-              <Play size={20} fill="black" />
+              <Play size={22} fill="black" />
               Play
             </button>
 
             <button
+              onClick={handleMoreInfo}
               className="
                 flex
                 items-center
-                gap-2
+                gap-3
+
+                rounded-md
+
                 bg-gray-700/80
                 backdrop-blur-md
+
                 text-white
+
+                px-6
+                py-3
+
+                lg:px-8
+                lg:py-4
+
+                text-base
+                lg:text-lg
+
                 font-semibold
-                px-5
-                sm:px-6
-                py-2.5
-                sm:py-3
-                rounded-md
-                hover:bg-gray-600
+
                 transition-all
                 duration-300
+
+                hover:scale-105
+                hover:bg-gray-600
               "
-               onClick={handleMoreInfo}
             >
-              <Info size={20} />
+              <Info size={22} />
               More Info
             </button>
           </div>

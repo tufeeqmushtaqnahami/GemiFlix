@@ -25,8 +25,9 @@ const VideoBackgorund = ({ movieId }) => {
           -translate-x-1/2
           -translate-y-1/2
           pointer-events-none
-          scale-125
-          lg:scale-110
+          scale-135
+lg:scale-115
+xl:scale-110
           
         "
        frameBorder="0"
@@ -36,14 +37,17 @@ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; pic
 allowFullScreen
 />
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/30" />
+     {/* Overall Dark Overlay */}
+<div className="absolute inset-0 bg-black/25" />
 
-      {/* Left Gradient */}
-      <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-black via-black/50 to-transparent" />
+{/* Top Gradient (NEW) */}
+<div className="absolute top-0 left-0 right-0 h-36 bg-gradient-to-b from-black via-black/70 to-transparent" />
 
-      {/* Bottom Gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-black via-black/60 to-transparent" />
+{/* Left Gradient */}
+<div className="absolute inset-y-0 left-0 w-[55%] bg-gradient-to-r from-black via-black/70 to-transparent" />
+
+{/* Bottom Gradient */}
+<div className="absolute bottom-0 left-0 right-0 h-56 bg-gradient-to-t from-black via-black/80 to-transparent" /> 
     </div>
   );
 };

@@ -37,7 +37,7 @@ const Header = () => {
   const [showBackground, setShowBackground] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showDesktopDropdown, setShowDesktopDropdown] = useState(false);
-  
+
   const dropdownRef = useRef(null);
 
   // Handle background change on scroll
@@ -66,14 +66,14 @@ const Header = () => {
       if (currentUser) {
         const { uid, email, displayName, photoURL } = currentUser;
         dispatch(addUser({ uid, email, displayName, photoURL }));
-        
+
         // Only redirect to browse if they are stuck on the login landing page
         if (currentPath === "/") {
           navigate("/browse");
         }
       } else {
         dispatch(removeUser());
-        
+
         // Only redirect to landing if they are trying to access protected areas
         if (currentPath !== "/") {
           navigate("/");
@@ -95,9 +95,11 @@ const Header = () => {
 
   const handleNavClick = (target) => {
     setShowMobileMenu(false);
-    if (showGptSearch && target === "top") return dispatch(toggleGptSearchView());
+    if (showGptSearch && target === "top")
+      return dispatch(toggleGptSearchView());
     if (target === "top") window.scrollTo({ top: 0, behavior: "smooth" });
-    else document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
+    else
+      document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
   };
 
   const UserAvatar = ({ sizeClasses }) =>
@@ -108,24 +110,48 @@ const Header = () => {
         className={`${sizeClasses} rounded-full object-cover border-2 border-white/10 shadow-sm`}
       />
     ) : (
-      <div className={`${sizeClasses} rounded-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center text-white font-bold shadow-inner`}>
-        {user?.displayName ? user.displayName.substring(0, 2).toUpperCase() : <User size={18} />}
+      <div
+        className={`${sizeClasses} rounded-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center text-white font-bold shadow-inner`}
+      >
+        {user?.displayName ? (
+          user.displayName.substring(0, 2).toUpperCase()
+        ) : (
+          <User size={18} />
+        )}
       </div>
     );
 
   return (
-    <header
-      className={`fixed top-0 left-0 z-50 w-full transition-all duration-500 ease-in-out ${
-        showBackground
-          ? "bg-black/75 backdrop-blur-xl border-b border-white/5 shadow-2xl py-0"
-          : "bg-gradient-to-b from-black/95 via-black/50 to-transparent py-2"
-      }`}
-    >
-      <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-10">
+   <header
+  className={`fixed top-0 left-0 z-50 w-full transition-all duration-500 ease-in-out ${
+    showBackground
+      ? "bg-black/40 backdrop-blur-2xl py-0"
+      : "bg-transparent py-2"
+  }`}
+>
+      <div
+        className=" mx-auto
+    max-w-[1900px]
+    2xl:max-w-[2200px]
+
+    px-4
+    sm:px-6
+    lg:px-10
+    xl:px-14
+    2xl:px-20"
+      >
         <div className="flex items-center justify-between h-16 sm:h-20">
-          
           {/* --- Left Side --- */}
-          <div className="flex items-center gap-4 sm:gap-6 lg:gap-10">
+          <div
+            className="  flex
+    items-center
+
+    gap-4
+    sm:gap-6
+    lg:gap-12
+    xl:gap-20
+    2xl:gap-28"
+          >
             {/* Mobile Hamburger: Only visible if user is logged in */}
             {user && (
               <button
@@ -141,20 +167,63 @@ const Header = () => {
               onClick={() => navigate(user ? "/browse" : "/")}
               className="text-xl sm:text-2xl md:text-3xl font-black cursor-pointer tracking-tighter select-none hover:scale-105 transition-transform duration-300"
             >
-              <span className="bg-gradient-to-r from-gray-100 to-gray-400 bg-clip-text text-transparent drop-shadow-sm">Gemi</span>
-              <span className="text-red-600 drop-shadow-[0_0_12px_rgba(220,38,38,0.4)]">Flix</span>
+              <span className="bg-gradient-to-r from-gray-100 to-gray-400 bg-clip-text text-transparent drop-shadow-sm">
+                Gemi
+              </span>
+              <span className="text-red-600 drop-shadow-[0_0_12px_rgba(220,38,38,0.4)]">
+                Flix
+              </span>
             </h1>
 
             {/* Desktop Navigation Links: Only visible if user is logged in */}
             {user && (
-              <nav className="hidden lg:flex items-center gap-2 ml-4">
+              <nav
+                className="hidden
+    lg:flex
+
+    items-center
+
+    ml-8
+    xl:ml-12
+    2xl:ml-16
+
+    gap-2
+    xl:gap-4
+    2xl:gap-6"
+              >
                 {NAV_LINKS.map(({ title, icon: Icon, target }) => (
                   <button
                     key={title}
                     onClick={() => handleNavClick(target)}
-                    className="group flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-all duration-300"
+                    className="group
+flex
+items-center
+gap-2
+
+px-4
+xl:px-5
+
+py-2
+
+text-sm
+xl:text-[15px]
+
+font-medium
+
+text-gray-300
+hover:text-white
+
+rounded-lg
+
+hover:bg-white/5
+
+transition-all
+duration-300"
                   >
-                    <Icon size={16} className="opacity-70 group-hover:opacity-100 group-hover:text-red-500 transition-colors" />
+                    <Icon
+                      size={16}
+                      className="opacity-70 group-hover:opacity-100 group-hover:text-red-500 transition-colors"
+                    />
                     {title}
                   </button>
                 ))}
@@ -164,29 +233,95 @@ const Header = () => {
 
           {/* --- Right Side --- */}
           {user && (
-            <div className="flex items-center gap-5 sm:gap-6">
-              
+            <div
+              className="flex
+    items-center
+
+    gap-5
+    lg:gap-7
+    xl:gap-8
+    2xl:gap-10"
+            >
               {/* Premium Search Button */}
               <button
                 onClick={() => dispatch(openSearch())}
                 className="group flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.06] border border-white/10 hover:bg-white/[0.15] hover:border-white/20 hover:scale-105 active:scale-95 transition-all duration-300 backdrop-blur-md shadow-lg shadow-black/20 outline-none"
                 aria-label="Search"
               >
-                <Search size={18} className="text-zinc-400 group-hover:text-white transition-colors" />
+                <Search
+                  size={18}
+                  className="text-zinc-400 group-hover:text-white transition-colors"
+                />
               </button>
 
               {/* Magical Gemini Button */}
               <button
                 onClick={handleGptSearchClick}
-                className="group flex items-center justify-center px-5 py-2.5 sm:px-6 sm:py-3.5 rounded-full bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 hover:brightness-110 text-white font-bold tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-indigo-950/50 hover:shadow-[0_0_35px_rgba(99,102,241,0.5)] outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                className="group
+  flex
+  items-center
+  justify-center
+
+  px-5
+  py-2.5
+
+  sm:px-6
+  sm:py-3
+
+  xl:px-8
+  xl:py-3.5
+
+  2xl:px-10
+  2xl:py-4
+
+  rounded-full
+
+  bg-gradient-to-br
+  from-indigo-600
+  via-purple-600
+  to-pink-600
+
+  hover:brightness-110
+
+  text-white
+  font-bold
+  tracking-wide
+
+  transition-all
+  duration-300
+
+  hover:scale-105
+  active:scale-95
+
+  shadow-lg
+  shadow-indigo-950/50
+
+  hover:shadow-[0_0_35px_rgba(99,102,241,0.5)]
+
+  outline-none
+
+  focus-visible:ring-2
+  focus-visible:ring-indigo-400
+  focus-visible:ring-offset-2
+  focus-visible:ring-offset-black"
               >
-                <Sparkles 
-                  size={18} 
-                  className="mr-1.5 sm:mr-2 sm:w-[20px] sm:h-[20px] text-white/90 group-hover:scale-110 group-hover:rotate-45 transition-all duration-300 ease-out" 
+                <Sparkles
+                  size={18}
+                  className="mr-1.5 sm:mr-2 sm:w-[20px] sm:h-[20px] text-white/90 group-hover:scale-110 group-hover:rotate-45 transition-all duration-300 ease-out"
                 />
-                <span className="text-sm sm:text-base tracking-wide whitespace-nowrap select-none">
-                  <span className="sm:hidden">{showGptSearch ? "Back" : "Ask Gemi"}</span>
-                  <span className="hidden sm:inline">{showGptSearch ? "Back to Browse" : "Gemini Search"}</span>
+                <span className="text-sm
+    sm:text-base
+    xl:text-lg
+
+    tracking-wide
+    whitespace-nowrap
+    select-none">
+                  <span className="sm:hidden">
+                    {showGptSearch ? "Back" : "Ask Gemi"}
+                  </span>
+                  <span className="hidden sm:inline">
+                    {showGptSearch ? "Back to Browse" : "Gemini Search"}
+                  </span>
                 </span>
               </button>
 
@@ -196,12 +331,11 @@ const Header = () => {
                   onClick={() => setShowDesktopDropdown(!showDesktopDropdown)}
                   className="flex items-center gap-2 p-1 rounded-full hover:bg-white/5 border border-transparent hover:border-white/10 transition-all duration-300 outline-none group"
                 >
-                  <UserAvatar sizeClasses="w-9 h-9" />
-                  <ChevronDown 
-                    size={16} 
-                    className={`text-gray-400 group-hover:text-white transition-transform duration-300 ${
-                      showDesktopDropdown ? "rotate-180" : ""
-                    }`}
+                  <UserAvatar sizeClasses="w-10 h-10 xl:w-11 xl:h-11" />
+                  <ChevronDown
+                    size={16}
+                    className={`text-gray-400 group-hover:text-white transition-transform duration-300 ${showDesktopDropdown ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
 
@@ -209,9 +343,15 @@ const Header = () => {
                 {showDesktopDropdown && (
                   <div className="absolute right-0 mt-3 w-64 bg-zinc-950/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.7)] py-3 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                     <div className="px-4 py-2.5">
-                      <p className="text-sm text-gray-400 font-medium">Signed in as</p>
-                      <p className="text-white font-bold text-base truncate">{user?.displayName || "Guest"}</p>
-                      <p className="text-xs text-gray-400 truncate mt-0.5">{user?.email}</p>
+                      <p className="text-sm text-gray-400 font-medium">
+                        Signed in as
+                      </p>
+                      <p className="text-white font-bold text-base truncate">
+                        {user?.displayName || "Guest"}
+                      </p>
+                      <p className="text-xs text-gray-400 truncate mt-0.5">
+                        {user?.email}
+                      </p>
                     </div>
 
                     <div className="h-px bg-white/10 my-2" />
@@ -228,7 +368,6 @@ const Header = () => {
                   </div>
                 )}
               </div>
-
             </div>
           )}
         </div>
@@ -238,18 +377,21 @@ const Header = () => {
       {user && (
         <div
           onClick={() => setShowMobileMenu(false)}
-          className={`fixed inset-0 z-[100] lg:hidden transition-all duration-500 ${
-            showMobileMenu ? "visible opacity-100 bg-black/60 backdrop-blur-sm" : "invisible opacity-0"
-          }`}
+          className={`fixed inset-0 z-[100] lg:hidden transition-all duration-500 ${showMobileMenu
+              ? "visible opacity-100 bg-black/60 backdrop-blur-sm"
+              : "invisible opacity-0"
+            }`}
         >
           <aside
             onClick={(e) => e.stopPropagation()}
-            className={`fixed top-0 left-0 h-screen w-[280px] bg-zinc-950/95 backdrop-blur-2xl border-r border-white/10 shadow-[20px_0_40px_rgba(0,0,0,0.5)] flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-              showMobileMenu ? "translate-x-0" : "-translate-x-full"
-            }`}
+            className={`fixed top-0 left-0 h-screen w-[280px] bg-zinc-950/95 backdrop-blur-2xl border-r border-white/10 shadow-[20px_0_40px_rgba(0,0,0,0.5)] flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${showMobileMenu ? "translate-x-0" : "-translate-x-full"
+              }`}
           >
             <div className="flex items-center justify-between p-6 pb-2">
-              <h2 onClick={() => handleNavClick("top")} className="text-2xl font-black tracking-tighter">
+              <h2
+                onClick={() => handleNavClick("top")}
+                className="text-2xl font-black tracking-tighter"
+              >
                 <span className="text-white">Gemi</span>
                 <span className="text-red-600">Flix</span>
               </h2>
@@ -263,7 +405,9 @@ const Header = () => {
 
             <div className="px-6 py-4">
               <UserAvatar sizeClasses="w-14 h-14 mb-4 shadow-lg" />
-              <h3 className="text-white font-bold text-lg truncate">{user?.displayName || "Guest"}</h3>
+              <h3 className="text-white font-bold text-lg truncate">
+                {user?.displayName || "Guest"}
+              </h3>
               <p className="text-sm text-gray-400 truncate">{user?.email}</p>
             </div>
 

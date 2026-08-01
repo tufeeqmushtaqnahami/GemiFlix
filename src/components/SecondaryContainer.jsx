@@ -26,23 +26,26 @@ const SecondaryContainer = () => {
         lg:pb-24
       "
     >
-      <div
-        className="
-          mx-auto
-          max-w-[1800px]
+     <div
+  className="
+    mx-auto
 
-          px-3
-          sm:px-5
-          md:px-8
-          lg:px-10
-          xl:px-12
+    w-full
+    max-w-[2400px]
 
-          space-y-10
-          sm:space-y-12
-          lg:space-y-16
-        "
-      >
+    px-4
+    sm:px-6
+    md:px-8
+    lg:px-10
+    xl:px-14
+    2xl:px-20
 
+    space-y-10
+    sm:space-y-12
+    lg:space-y-16
+    xl:space-y-20
+  "
+>
 
         <MovieList
           title="Trending"
