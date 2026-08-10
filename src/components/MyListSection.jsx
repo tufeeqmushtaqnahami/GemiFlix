@@ -8,9 +8,9 @@ const MyListSection = () => {
     <section
       id="my-list-section"
       className="
-        py-12
-        sm:py-14
-        lg:py-16
+       py-1
+sm:py-2
+lg:py-3
       "
     >
       {/* Heading */}

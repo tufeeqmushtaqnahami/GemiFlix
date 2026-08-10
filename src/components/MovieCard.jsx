@@ -136,25 +136,9 @@ const handleMovieClick = () => {
           group-hover:scale-110
         "
       />
+     
 
-      {/* Overlay */}
-      <div
-        className="
-          absolute
-          inset-0
-
-          bg-gradient-to-t
-          from-black
-          via-black/30
-          to-transparent
-
-          opacity-0
-          group-hover:opacity-100
-
-          transition-all
-          duration-500
-        "
-      />
+    
 
       {/* Play Button */}
       <div
@@ -234,10 +218,6 @@ const handleMovieClick = () => {
           h-20
           sm:h-24
           lg:h-28
-
-          bg-gradient-to-t
-          from-black/80
-          to-transparent
         "
       />
     </div>

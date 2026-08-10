@@ -49,9 +49,13 @@ const Genres = () => {
     <section
       id="genres-section"
       className="
-        py-12
-        sm:py-14
-        lg:py-16
+      pt-1
+sm:pt-2
+lg:pt-3
+
+pb-1
+sm:pb-2
+lg:pb-3
       "
     >
       {/* Heading */}

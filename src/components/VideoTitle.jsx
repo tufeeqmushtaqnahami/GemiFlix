@@ -38,147 +38,157 @@ const VideoTitle = ({ id, title, overview }) => {
         to-transparent
       "
     >
+      {/* Content */}
       <div
         className="
-          mx-auto
           w-full
-          max-w-[1800px]
 
-          px-5
-          sm:px-8
+          px-6
+          sm:px-10
           md:px-12
-          lg:px-20
-          xl:px-28
-          2xl:px-36
+          lg:px-10
+          xl:px-20
+          2xl:px-28
         "
       >
-        <div
+        {/* Title */}
+        <h1
           className="
-            max-w-xs
-            sm:max-w-md
-            md:max-w-xl
-            lg:max-w-3xl
-            xl:max-w-4xl
+            text-3xl
+            sm:text-4xl
+            md:text-5xl
+            lg:text-5xl
+            xl:text-6xl
+            2xl:text-7xl
+            max-[1700px]:text-5xl
+            font-bold
+            leading-tight
+            tracking-tight
+
+            text-white
+            drop-shadow-2xl
           "
         >
-          {/* Title */}
-          <h1
-            className="
-              text-3xl
-              sm:text-4xl
-              md:text-5xl
-              lg:text-6xl
-              xl:text-7xl
-              2xl:text-8xl
+          {title}
+        </h1>
 
-              font-extrabold
-              leading-tight
-              tracking-tight
+        {/* Description */}
+        <p
+          className="
+            hidden
+            md:block
+
+            mt-5
+            lg:mt-6
+
+           max-w-xl
+            xl:max-w-2xl
+            2xl:max-w-3xl
+            max-[1700px]:max-w-2xl
+     
+
+            text-gray-200
+
+            text-sm
+            lg:text-base
+            xl:text-base
+
+            leading-relaxed
+
+            drop-shadow-lg
+          "
+        >
+          {overview}
+        </p>
+
+        {/* Buttons */}
+        <div
+          className="
+            mt-6
+            lg:mt-8
+            flex
+            flex-wrap
+            items-center
+            gap-3
+            lg:gap-4
+          "
+        >
+          <button
+            onClick={handlePlay}
+            className="
+              flex
+              items-center
+              gap-2
+              lg:gap-3
+
+              rounded-md
+
+              bg-white
+              text-black
+
+              px-5
+              py-2.5
+              lg:px-6
+              lg:py-3
+
+              text-sm
+              lg:text-base
+
+              font-semibold
+
+              transition-all
+              duration-300
+
+              hover:scale-105
+              hover:bg-gray-200
+            "
+          >
+            <Play
+              size={20}
+              className="lg:w-[22px] lg:h-[22px]"
+              fill="black"
+            />
+            Play
+          </button>
+
+          <button
+            onClick={handleMoreInfo}
+            className="
+              flex
+              items-center
+              gap-2
+              lg:gap-3
+
+              rounded-md
+
+              bg-gray-700/80
+              backdrop-blur-md
 
               text-white
-              drop-shadow-2xl
+
+              px-5
+              py-2.5
+              lg:px-6
+              lg:py-3
+
+              text-sm
+              lg:text-base
+
+              font-semibold
+
+              transition-all
+              duration-300
+
+              hover:scale-105
+              hover:bg-gray-600
             "
           >
-            {title}
-          </h1>
-
-          {/* Description */}
-          <p
-            className="
-              hidden
-              md:block
-
-              mt-6
-
-              max-w-2xl
-              xl:max-w-3xl
-
-              text-gray-200
-
-              text-base
-              lg:text-lg
-              xl:text-xl
-
-              leading-relaxed
-
-              drop-shadow-lg
-            "
-          >
-            {overview}
-          </p>
-
-          {/* Buttons */}
-          <div className="mt-8 flex flex-wrap items-center gap-4 lg:mt-10">
-            <button
-              onClick={handlePlay}
-              className="
-                flex
-                items-center
-                gap-3
-
-                rounded-md
-
-                bg-white
-                text-black
-
-                px-6
-                py-3
-
-                lg:px-8
-                lg:py-4
-
-                text-base
-                lg:text-lg
-
-                font-semibold
-
-                transition-all
-                duration-300
-
-                hover:scale-105
-                hover:bg-gray-200
-              "
-            >
-              <Play size={22} fill="black" />
-              Play
-            </button>
-
-            <button
-              onClick={handleMoreInfo}
-              className="
-                flex
-                items-center
-                gap-3
-
-                rounded-md
-
-                bg-gray-700/80
-                backdrop-blur-md
-
-                text-white
-
-                px-6
-                py-3
-
-                lg:px-8
-                lg:py-4
-
-                text-base
-                lg:text-lg
-
-                font-semibold
-
-                transition-all
-                duration-300
-
-                hover:scale-105
-                hover:bg-gray-600
-              "
-            >
-              <Info size={22} />
-              More Info
-            </button>
-          </div>
+            <Info
+              size={20}
+              className="lg:w-[22px] lg:h-[22px]"
+            />
+            More Info
+          </button>
         </div>
       </div>
     </div>

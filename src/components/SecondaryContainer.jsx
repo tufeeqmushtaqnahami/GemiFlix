@@ -21,64 +21,44 @@ const SecondaryContainer = () => {
 
         bg-black
 
-        pb-16
-        sm:pb-20
-        lg:pb-24
+        
       "
     >
-     <div
-  className="
+      <div
+        className="
     mx-auto
 
     w-full
     max-w-[2400px]
 
-    px-4
-    sm:px-6
-    md:px-8
-    lg:px-10
-    xl:px-14
-    2xl:px-20
+   px-4
+sm:px-6
+md:px-8
+lg:px-6
+xl:px-20
+2xl:px-28
+
 
     space-y-10
     sm:space-y-12
     lg:space-y-16
     xl:space-y-20
   "
->
+      >
+        <MovieList title="Trending" movies={movies.trendingMovies} />
 
-        <MovieList
-          title="Trending"
-          movies={movies.trendingMovies}
-        />
-
-          
-          <MovieList
-  title="Bollywood Movies"
-  movies={movies.bollywoodMovies}
-/>
-
-
+        <MovieList title="Bollywood Movies" movies={movies.bollywoodMovies} />
 
         <MovieList
           title="Now Playing Movies"
           movies={movies.nowPlayingMovies}
         />
 
-        <MovieList
-          title="Popular"
-          movies={movies.popularMovies}
-        />
+        <MovieList title="Popular" movies={movies.popularMovies} />
 
-        <MovieList
-          title="Upcoming Movies"
-          movies={movies.upcomingMovies}
-        />
+        <MovieList title="Upcoming Movies" movies={movies.upcomingMovies} />
 
-        <MovieList
-          title="Top Rated"
-          movies={movies.topRatedMovies}
-        />
+        <MovieList title="Top Rated" movies={movies.topRatedMovies} />
 
         <Genres />
 

@@ -18,12 +18,13 @@ import {
   Menu,
   X,
   ChevronDown,
+  Tags,
 } from "lucide-react";
 
 const NAV_LINKS = [
   { title: "Home", icon: Home, target: "top" },
   { title: "Movies", icon: Film, target: "movies-section" },
-  { title: "Genres", icon: Film, target: "genres-section" },
+  { title: "Genres", icon: Tags, target: "genres-section" },
   { title: "My List", icon: Heart, target: "my-list-section" },
 ];
 
@@ -143,14 +144,13 @@ const Header = () => {
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* --- Left Side --- */}
           <div
-            className="  flex
+            className="flex
     items-center
-
-    gap-4
-    sm:gap-6
-    lg:gap-12
-    xl:gap-20
-    2xl:gap-28"
+    gap-3
+    sm:gap-4
+    lg:gap-5
+    xl:gap-10
+    2xl:gap-16"
           >
             {/* Mobile Hamburger: Only visible if user is logged in */}
             {user && (
@@ -164,7 +164,7 @@ const Header = () => {
             )}
 
             <h1
-              onClick={() => navigate(user ? "/browse" : "/")}
+               onClick={() => handleNavClick("top")}
               className="text-xl sm:text-2xl md:text-3xl font-black cursor-pointer tracking-tighter select-none hover:scale-105 transition-transform duration-300"
             >
               <span className="bg-gradient-to-r from-gray-100 to-gray-400 bg-clip-text text-transparent drop-shadow-sm">
@@ -180,45 +180,35 @@ const Header = () => {
               <nav
                 className="hidden
     lg:flex
-
     items-center
-
-    ml-8
-    xl:ml-12
-    2xl:ml-16
-
-    gap-2
-    xl:gap-4
-    2xl:gap-6"
+    ml-2
+    xl:ml-6
+    2xl:ml-10
+    gap-0
+    xl:gap-2
+    2xl:gap-4"
               >
                 {NAV_LINKS.map(({ title, icon: Icon, target }) => (
                   <button
                     key={title}
                     onClick={() => handleNavClick(target)}
                     className="group
-flex
-items-center
-gap-2
-
-px-4
-xl:px-5
-
-py-2
-
-text-sm
-xl:text-[15px]
-
-font-medium
-
-text-gray-300
-hover:text-white
-
-rounded-lg
-
-hover:bg-white/5
-
-transition-all
-duration-300"
+    flex
+    items-center
+    gap-2
+    px-2
+    xl:px-5
+    py-2
+    text-sm
+    xl:text-[15px]
+    font-medium
+    text-gray-300
+    hover:text-red-500
+    rounded-lg
+    hover:bg-white/5
+    transition-all
+    duration-300
+    whitespace-nowrap"
                   >
                     <Icon
                       size={16}
@@ -236,11 +226,10 @@ duration-300"
             <div
               className="flex
     items-center
-
-    gap-5
-    lg:gap-7
-    xl:gap-8
-    2xl:gap-10"
+    gap-2
+    lg:gap-3
+    xl:gap-5
+    2xl:gap-8"
             >
               {/* Premium Search Button */}
               <button
@@ -261,21 +250,15 @@ duration-300"
   flex
   items-center
   justify-center
-
-  px-5
-  py-2.5
-
-  sm:px-6
-  sm:py-3
-
-  xl:px-8
-  xl:py-3.5
-
-  2xl:px-10
-  2xl:py-4
-
+  px-3
+py-2
+lg:px-3
+lg:py-2.5
+xl:px-6
+xl:py-3
+2xl:px-8
+2xl:py-3.5
   rounded-full
-
   bg-gradient-to-br
   from-indigo-600
   via-purple-600
