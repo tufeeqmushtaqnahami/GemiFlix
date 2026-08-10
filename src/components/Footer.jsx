@@ -94,26 +94,24 @@ const Footer = () => {
 
           {/* About */}
           <div>
-            <p
-              className="
-                text-lg
-                sm:text-xl
-                lg:text-2xl
+           <p
+  className="
+    text-lg
+    sm:text-xl
+    lg:text-2xl
 
-                font-medium
-                leading-relaxed
+    font-medium
+    leading-relaxed
 
-                text-gray-200
-                mb-8
-              "
-            >
-              Designed & Developed with
-              <span className="mx-2 text-red-500">❤️</span>
-              by
-              <span className="ml-2 font-bold text-red-500">
-                Tufeeq Mushtaq
-              </span>
-            </p>
+    text-gray-200
+    mb-8
+  "
+>
+  Designed & Developed by
+  <span className="ml-2 font-bold text-red-500">
+    Tufeeq Mushtaq
+  </span>
+</p>
 
             <div className="space-y-3">
               <a

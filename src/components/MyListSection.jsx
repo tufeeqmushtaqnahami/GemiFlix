@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import MovieList from "./MovieList";
+import { Bookmark } from "lucide-react";
 
 const MyListSection = () => {
   const myList = useSelector((store) => store.myList.movies);
@@ -14,24 +15,30 @@ lg:py-3
       "
     >
       {/* Heading */}
-      <div className="mb-8 lg:mb-10">
-        <h2
-          className="
-            text-xl
-            sm:text-2xl
-            md:text-3xl
-            lg:text-4xl
-            font-bold
-            text-white
-          "
-        >
-          ❤️ My List
-        </h2>
+       <div className="mb-6">
+  <div className="flex items-center gap-3">
+    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-600/10">
+      <Bookmark
+        size={26}
+    strokeWidth={2.5}
+    className="text-red-500"
+    fill="currentColor"
+      />
+    </div>
 
-        <p className="mt-2 text-sm sm:text-base text-gray-400">
-          Your personal collection of saved movies.
-        </p>
-      </div>
+    <div>
+      <h2 className="text-2xl sm:text-3xl font-bold text-white">
+        My List
+      </h2>
+
+      <p className="mt-1 text-sm sm:text-base text-gray-400">
+        Your personal collection of saved movies.
+      </p>
+    </div>
+  </div>
+</div>
+
+
 
       {myList.length === 0 ? (
         <div
