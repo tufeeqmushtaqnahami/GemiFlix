@@ -123,13 +123,13 @@ const Header = () => {
     );
 
   return (
-   <header
-  className={`fixed top-0 left-0 z-50 w-full transition-all duration-500 ease-in-out ${
-    showBackground
-      ? "bg-black/40 backdrop-blur-2xl py-0"
-      : "bg-transparent py-2"
-  }`}
->
+    <header
+      className={`fixed top-0 left-0 z-50 w-full transition-all duration-500 ease-in-out ${
+        showBackground
+          ? "bg-black/40 backdrop-blur-2xl py-0"
+          : "bg-transparent py-2"
+      }`}
+    >
       <div
         className=" mx-auto
     max-w-[1900px]
@@ -164,7 +164,7 @@ const Header = () => {
             )}
 
             <h1
-               onClick={() => handleNavClick("top")}
+              onClick={() => handleNavClick("top")}
               className="text-xl sm:text-2xl md:text-3xl font-black cursor-pointer tracking-tighter select-none hover:scale-105 transition-transform duration-300"
             >
               <span className="bg-gradient-to-r from-gray-100 to-gray-400 bg-clip-text text-transparent drop-shadow-sm">
@@ -292,13 +292,15 @@ xl:py-3
                   size={18}
                   className="mr-1.5 sm:mr-2 sm:w-[20px] sm:h-[20px] text-white/90 group-hover:scale-110 group-hover:rotate-45 transition-all duration-300 ease-out"
                 />
-                <span className="text-sm
+                <span
+                  className="text-sm
     sm:text-base
     xl:text-lg
 
     tracking-wide
     whitespace-nowrap
-    select-none">
+    select-none"
+                >
                   <span className="sm:hidden">
                     {showGptSearch ? "Back" : "Ask Gemi"}
                   </span>
@@ -317,8 +319,9 @@ xl:py-3
                   <UserAvatar sizeClasses="w-10 h-10 xl:w-11 xl:h-11" />
                   <ChevronDown
                     size={16}
-                    className={`text-gray-400 group-hover:text-white transition-transform duration-300 ${showDesktopDropdown ? "rotate-180" : ""
-                      }`}
+                    className={`text-gray-400 group-hover:text-white transition-transform duration-300 ${
+                      showDesktopDropdown ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
 
@@ -326,9 +329,6 @@ xl:py-3
                 {showDesktopDropdown && (
                   <div className="absolute right-0 mt-3 w-64 bg-zinc-950/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.7)] py-3 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                     <div className="px-4 py-2.5">
-                      <p className="text-sm text-gray-400 font-medium">
-                        Signed in as
-                      </p>
                       <p className="text-white font-bold text-base truncate">
                         {user?.displayName || "Guest"}
                       </p>
@@ -360,15 +360,17 @@ xl:py-3
       {user && (
         <div
           onClick={() => setShowMobileMenu(false)}
-          className={`fixed inset-0 z-[100] lg:hidden transition-all duration-500 ${showMobileMenu
+          className={`fixed inset-0 z-[100] lg:hidden transition-all duration-500 ${
+            showMobileMenu
               ? "visible opacity-100 bg-black/60 backdrop-blur-sm"
               : "invisible opacity-0"
-            }`}
+          }`}
         >
           <aside
             onClick={(e) => e.stopPropagation()}
-            className={`fixed top-0 left-0 h-screen w-[280px] bg-zinc-950/95 backdrop-blur-2xl border-r border-white/10 shadow-[20px_0_40px_rgba(0,0,0,0.5)] flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${showMobileMenu ? "translate-x-0" : "-translate-x-full"
-              }`}
+            className={`fixed top-0 left-0 h-screen w-[280px] bg-zinc-950/95 backdrop-blur-2xl border-r border-white/10 shadow-[20px_0_40px_rgba(0,0,0,0.5)] flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              showMobileMenu ? "translate-x-0" : "-translate-x-full"
+            }`}
           >
             <div className="flex items-center justify-between p-6 pb-2">
               <h2
